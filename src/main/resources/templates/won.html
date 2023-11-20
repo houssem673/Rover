@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
+    <style>
+
+        #background-video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(5px);
+            border-radius: 25px;
+            margin-outside: 25px;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<video id="background-video" autoplay loop muted>
+    <source src="fireworks.mp4" type="video/mp4">
+</video>
+
+<div class="container">
+    <h1>Burgertown</h1>
+
+
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm align-content-center">
+            <h2> GEWONNEN!</h2>
+        </div>
+
+        <div class="col-sm badge badge-success align-content-center">
+            <div class="col">
+
+                <div th:if="${highscore >= 0}" class="row">
+                    <span>Alter Highscore: </span> <span th:text="${highscore}">42000</span>
+                </div>
+                <div class="row">
+                    <span>Züge im letzten Spiel:</span><span th:text="${currentSteps}">42</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm align-content-center">
+            <form method="get" th:action="@{/game}"> <input name="currentSteps" type="hidden" value="0"> <button class="btn btn-dark">neues Spiel starten</button></form>
+        </div>
+        <div class="col-sm">
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+    <h1>Burgertown </h1>
+    <div>
+        <span>Aktuelle Anzahl von Zügen:</span> <span th:text="${currentSteps}">42</span>
+    </div>
+    <div th:if="${highscore >= 0}">
+        <span>Alter Highscore: </span> <span th:text="${highscore}">1000</span>
+    </div>
+
+    <table class="table table-sm table-bordered" th:if="${board}">
+        <tbody>
+        <tr th:each="row : ${board.tiles}">
+            <td class="text-center" th:each="tile : ${row}">
+                <span th:text="${tile.htmlPrint(board.playerPosition)}">
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <div class="container" th:if="${board}">
+        <div th:unless="${board.gameWon}" class="row">
+            <form method="post" th:action="@{/game/up}">
+                <input name="currentSteps" type="hidden" th:value="${currentSteps}">
+                <button class="btn btn-dark">nach oben fahren</button> </form>
+            <form method="post" th:action="@{/game/down}">
+                <input name="currentSteps" type="hidden" th:value="${currentSteps}">
+                <button class="btn btn-dark">nach unten fahren</button> </form>
+            <form method="post" th:action="@{/game/left}">
+                <input name="currentSteps" type="hidden" th:value="${currentSteps}">
+                <button class="btn btn-dark">nach links fahren</button> </form>
+            <form method="post" th:action="@{/game/right}">
+                <input name="currentSteps" type="hidden" th:value="${currentSteps}">
+                <button class="btn btn-dark">nach rechts fahren</button> </form>
+
+
+        </div>
+        <div th:if="${board.gameWon}">
+            <span>Du hast gewonnen!</span>
+        </div>
+
+        <form method="get" action="/reset"> <button class="btn btn-dark">New game</button></form>
+    </div>
+
+
+</div>
+</body>
+</html>
